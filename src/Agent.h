@@ -8,6 +8,10 @@
 #include "utils.h"
 #include "SteeringBehavior.h"
 
+#define MAX_GOLD_CAPACITY 15.f
+#define MAX_THIRST 10.f
+#define MAX_TIRED 10.f
+
 
 class Agent
 {
@@ -24,6 +28,10 @@ private:
 	float max_force;
 	float max_velocity;
 
+	float gold; //quantity of gold agent carries
+	float thirst; // 0 - 10 The bigger the number, more thirsty is the character(more will drink)
+	float tired; // 0-10 The bigger the number, more tired is the character (more will sleep)
+
 	SDL_Color color;
 
 	SDL_Texture *sprite_texture;
@@ -31,6 +39,7 @@ private:
 	int sprite_num_frames;
 	int sprite_w;
 	int sprite_h;
+
 
 public:
 	Agent();
@@ -48,5 +57,17 @@ public:
 	void update(Vector2D steering_force, float dtime, SDL_Event *event);
 	void draw();
 	bool Agent::loadSpriteTexture(char* filename, int num_frames=1);
-	
+
+	Vector2D cell2pix(Vector2D cell);
+	Vector2D pix2cell(Vector2D pix);
+
+	//functions goTo
+	void goToBank();
+	void goToHome();
+	void goToMine();
+	void goToSaloon();
+
+	//functions
+	float getGold();
+	void setGold(float dineros);
 };

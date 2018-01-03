@@ -4,6 +4,13 @@
 #include "Scene.h"
 #include "Agent.h"
 #include "Path.h"
+#include "FSM.h"
+#include "State.h"
+
+#include "State_Bank.h"
+#include "State_Home.h"
+#include "State_Mine.h"
+#include "State_Saloon.h"
 
 class ScenePlanning :
 	public Scene
@@ -16,6 +23,7 @@ public:
 	const char* getTitle();
 private:
 	std::vector<Agent*> agents;
+	FSM *FiniteStateMachine;
 	Vector2D coinPosition;
 	Vector2D currentTarget;
 	int currentTargetIndex;

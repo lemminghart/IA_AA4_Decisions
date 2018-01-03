@@ -17,6 +17,10 @@ Agent::Agent() : sprite_texture(0),
 	             draw_sprite(false)
 {
 	steering_behavior = new SteeringBehavior;
+
+	float gold = 0;
+	float thirst = 0;
+	float tired = 0;
 }
 
 Agent::~Agent()
@@ -155,4 +159,41 @@ bool Agent::loadSpriteTexture(char* filename, int _num_frames)
 		SDL_FreeSurface(image);
 
 	return true;
+}
+
+Vector2D Agent::cell2pix(Vector2D cell)
+{
+	int offset = CELL_SIZE / 2;
+	return Vector2D(cell.x*CELL_SIZE + offset, cell.y*CELL_SIZE + offset);
+}
+
+Vector2D Agent::pix2cell(Vector2D pix)
+{
+	return Vector2D((float)((int)pix.x / CELL_SIZE), (float)((int)pix.y / CELL_SIZE));
+}
+
+//functions goTo
+void Agent::goToBank() 
+{
+	target = cell2pix(Vector2D(6, 20));
+}
+void Agent::goToHome() 
+{
+	target = cell2pix(Vector2D(20, 20));
+}
+void Agent::goToMine()
+{
+	target = cell2pix(Vector2D(21, 2));
+}
+void Agent::goToSaloon()
+{
+	target = cell2pix(Vector2D(33, 20));
+}
+
+float Agent::getGold() {
+	return gold;
+}
+
+void Agent::setGold(float dineros) {
+	gold = dineros;
 }

@@ -1,4 +1,5 @@
 #include "ScenePlanning.h"
+#include "State.h"
 
 using namespace std;
 
@@ -17,18 +18,34 @@ ScenePlanning::ScenePlanning()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 
+	//iniciamos la maquina de estados
+	FSM *finiteStateMachine = new FSM;
 
-	// set agent position coords to the center of a random cell
-	Vector2D rand_cell(-1,-1);
-	while (!isValidCell(rand_cell)) 
-		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-	agents[0]->setPosition(cell2pix(rand_cell));
+	//iniciamos los diferentes estados que usaremos
+	State_Bank *bank = new State_Bank;
+	State_Home *home = new State_Home;
+	State_Mine *mine = new State_Mine;
+	State_Saloon *saloon = new State_Saloon;
 
-	// set the coin in a random cell (but at least 3 cells far from the agent)
-	coinPosition = Vector2D(-1,-1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3)) 
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	//fijamos el estado inicial
+	finiteStateMachine->ActualState = home;
+
 	
+
+	//// set agent position coords to the center of a random cell
+	//Vector2D rand_cell(-1,-1);
+	//while (!isValidCell(rand_cell)) 
+	//	rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	//agents[0]->setPosition(cell2pix(rand_cell));
+
+	//Agent starts at home
+	agents[0]->setPosition(cell2pix(Vector2D(20, 20)));
+
+	//// set the coin in a random cell (but at least 3 cells far from the agent)
+	//coinPosition = Vector2D(-1,-1);
+	//while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3)) 
+	//	coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	//
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
@@ -46,6 +63,13 @@ ScenePlanning::~ScenePlanning()
 	{
 		delete agents[i];
 	}
+
+	delete FiniteStateMachine;
+	/*delete bank;
+	delete home;
+	delete saloon;
+	delete mine;*/
+
 }
 
 void ScenePlanning::update(float dtime, SDL_Event *event)
