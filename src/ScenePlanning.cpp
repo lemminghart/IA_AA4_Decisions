@@ -19,16 +19,21 @@ ScenePlanning::ScenePlanning()
 	agents.push_back(agent);
 
 	//iniciamos la maquina de estados
-	FSM *finiteStateMachine = new FSM;
+	FSM *finiteStateMachine = new FSM; 
 
 	//iniciamos los diferentes estados que usaremos
-	State_Bank *bank = new State_Bank;
-	State_Home *home = new State_Home;
-	State_Mine *mine = new State_Mine;
-	State_Saloon *saloon = new State_Saloon;
+	State_Bank bank;
+	State_Home home;
+	State_Mine mine;
+	State_Saloon saloon;
+
+	FSM * SBank = &bank;
+	FSM * SHome = &home;
+	FSM * SMine = &mine;
+	FSM * SSaloon = &saloon;
 
 	//fijamos el estado inicial
-	finiteStateMachine->ActualState = home;
+	finiteStateMachine->ActualState = SHome;
 
 	
 

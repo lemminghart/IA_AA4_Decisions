@@ -1,21 +1,26 @@
 #pragma once
 #include "FSM.h"
 #include "Agent.h"
+#include "utils.h"
 
 class State_Bank : public FSM {
 public:
 	State_Bank();
 	~State_Bank();
-	float gold; //cantidad de oro que hay en el banco
 
 	//functions
-	void Update();
+	void Enter(Agent *agente);
+	void Update(Agent *agente);
+	void Exit(Agent *agente);
+
+
 	
 
 
-	void DepositGold(Agent *miner);
-	bool IsWealthy();
-	void ChangeState();
+	//void DepositGold(Agent *miner);
+	//bool IsWealthy();
+	//void ChangeState();
+
 	//deposit gold
 	//wealthy?
 		//go home

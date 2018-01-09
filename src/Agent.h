@@ -9,6 +9,7 @@
 #include "SteeringBehavior.h"
 
 #define MAX_GOLD_CAPACITY 15.f
+#define WEALTHY 40.f
 #define MAX_THIRST 10.f
 #define MAX_TIRED 10.f
 
@@ -67,7 +68,7 @@ public:
 	void goToMine();
 	void goToSaloon();
 
-	//functions
+	//State functions
 	float getGold();
 	void setGold(float dineros);
 };
